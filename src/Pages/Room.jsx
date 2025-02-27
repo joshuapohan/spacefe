@@ -8,6 +8,12 @@ function Room(props) {
     const [frame, setFrame] = useState([[[]]])
     const ws = useRef(null);
 
+    const sendMessage = (message) => {
+      ws.current.send(JSON.stringify({
+        chat_type: "MOVEMENT",
+        value:message
+      }))
+    };
 
     useEffect(() => {
       if(room !== "" && isRoomJoined){
@@ -62,8 +68,21 @@ function Room(props) {
                       </tr>
                     })
                   }
+                  <tr>
+                    <td>
+                      <button onClick={()=>sendMessage("-")}>-</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button onClick={()=>sendMessage("-1")}>L</button>                      
+                    </td>
+                    <td>
+                    <button onClick={()=>sendMessage("1")}>R</button>                      
+                    </td>
+                  </tr>
                 </tbody>
-              </table>              
+              </table>
           </div>
         }        
       </div>
